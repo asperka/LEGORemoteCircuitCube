@@ -60,9 +60,15 @@ void ButtonCallbackTank (int button, int state)
 
 void setup()
 {
+  bool result;
+
   Serial.begin(115200);
   BLEDevice::init ("");
-  myLEGORemote.Init ();
+  do {
+    result = myLEGORemote.Init ();
+    if (!result)
+      delay(1000);
+  } while (!result);
   myCircuitCube1.Init ();
 #ifdef TRAIN_CONTROL
   myCircuitCube2.Init ();
