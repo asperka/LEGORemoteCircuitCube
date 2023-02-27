@@ -9,7 +9,7 @@ public:
     LEGORemote ();
     virtual ~LEGORemote () {}
 
-    void Init ();
+    bool Init ();
     void SetButtonCallback (std::function<void(int, int)> callback);
 
     enum

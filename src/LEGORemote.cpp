@@ -9,10 +9,11 @@ const std::string LEGO_REMOTE_CHARACTERISTICS_UUID = "00001624-1212-efde-1623-78
 LEGORemote::LEGORemote ()
 {}
 
-void LEGORemote::Init ()
+bool LEGORemote::Init ()
 {
     BLEScan *pScan = BLEDevice::getScan();
     BLEScanResults results = pScan->start(2);
+    bool found = false;
     
     BLEUUID LEGOServiceUuid (LEGO_REMOTE_SERVICE_UUID);
     
@@ -37,12 +38,13 @@ void LEGORemote::Init ()
                         WriteValue (activatePortDeviceMessage, 8);
                         activatePortDeviceMessage[1] = LEGORemote::RIGHT;
                         WriteValue (activatePortDeviceMessage, 8);
+                        found = true;
                     }
                 }
             }
         }
     }
-
+    return found;
 }
 
 void LEGORemote::SetButtonCallback (std::function<void(int, int)> callback)
