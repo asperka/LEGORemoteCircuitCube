@@ -47,10 +47,10 @@ void ButtonCallbackTank (int button, int state)
             vel[idx] = 0;
             break;
         case(LEGORemote::UP):
-            vel[idx] = 255;
+            vel[idx] = 200;
             break;
         case(LEGORemote::DOWN):
-            vel[idx] = -255;
+            vel[idx] = -200;
             break;
         case(LEGORemote::STOP):
             vel[idx] = 0;
