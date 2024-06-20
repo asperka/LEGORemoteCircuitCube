@@ -8,6 +8,7 @@
 
 int vel[2] = {0,0};
 int acc[2] = {0,0};
+int stop = 0;
 
 #ifdef TRAIN_CONTROL
 CircuitCube myCircuitCube1 ("FC:58:FA:86:E9:38");
@@ -53,7 +54,7 @@ void ButtonCallbackTank (int button, int state)
             vel[idx] = -200;
             break;
         case(LEGORemote::STOP):
-            vel[idx] = 0;
+            stop = (idx==0) ? 200 : 0;
             break;
     }
 }
@@ -92,7 +93,7 @@ void loop()
     myCircuitCube1.SetVelocities (vel[0], vel[0], vel[0]);
     myCircuitCube2.SetVelocities (vel[1], vel[1], vel[1]);
 #else
-    myCircuitCube1.SetVelocities (vel[0], 0, vel[1]);
+    myCircuitCube1.SetVelocities (vel[0], stop, vel[1]);
 #endif
     log_i ("v1: %d, a1: %d  -  v2: %d, a2: %d", vel[0], acc[0], vel[1], acc[1]);
 } // End of loop
